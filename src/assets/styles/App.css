@@ -1,0 +1,30 @@
+.todos {
+    background:linear-gradient(gray,rgba(2,100,200,0.5));
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0px 30px;
+    min-height: calc(100vh); 
+  }
+
+.todos__container{
+    position: relative;
+    margin:0px;
+    padding: 10px;
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content:center;
+    flex-flow: column wrap;
+    width:50%;
+    height:100%;
+    background:rgba(0,0,0,0.2);
+    border-radius: 40px;
+}
+
+.todos__container-button{
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+}

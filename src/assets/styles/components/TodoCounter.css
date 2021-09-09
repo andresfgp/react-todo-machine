@@ -1,0 +1,13 @@
+.title{
+    text-align:center;
+    color:white;
+}
+
+.title>img{
+  width: 50%;
+  padding-top: 20px;
+}
+
+.title>h2{
+    margin-top: 0px;
+  }

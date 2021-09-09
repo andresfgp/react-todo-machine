@@ -1,9 +1,16 @@
 import React from 'react'
+import '../assets/styles/components/CreateTodoButton.css'
 
-const CreateTodoButton = () => {
+const CreateTodoButton = (props) => {
+    const handleOnClick =(msg)=>{
+      alert(msg);
+    }
     return (
         <>
-          <button>+</button>  
+          <button 
+            className='button'
+            onClick={()=>handleOnClick('Alerta')} //funcion
+          >+</button>  
         </>
     )
 }
