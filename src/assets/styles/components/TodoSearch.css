@@ -1,9 +1,14 @@
 .TodoSearch{
+    display: flex;
+    align-items: center;
+    width: 80%;
+}
+.TodoSearch__input{
     background: transparent;
     height:35px;
-    width: calc(100% - 250px);
+    width: 100%;
     text-align: center;
-    border-radius: 10px;
+    border-radius: 25px;
     border: 2px solid white;
     outline: none;
     font-size: 20px;
@@ -11,8 +16,16 @@
     color:white;
 }
 
-.TodoSearch::placeholder {
+.TodoSearch__input::placeholder {
     color: white;
     font-family: 'Montserrat';
     font-size: 20px;
+  }
+
+.TodoSearch__important{
+    margin-left: 10px;
+}
+
+.TodoSearch__important--active{
+    color:red;
   }
