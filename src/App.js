@@ -28,20 +28,34 @@ function generateUUID() { // Public Domain/MIT
 //   {text:'llorar',completed:false, important:false, id:generateUUID()},
 // ]
 
-function App(props) {
-
-  const localStorageTodos=localStorage.getItem('TODOS_V1');
-  let parsedTodos;
-
-  if(!localStorageTodos){
-    localStorage.setItem('TODOS_V1',JSON.stringify([]))
-    parsedTodos=[]
-  }else{
-    parsedTodos=JSON.parse(localStorageTodos)
+function useLocalStorage(itemName, initialValue) { //nuevo HOOK
+  const localStorageItem = localStorage.getItem(itemName);
+  let parsedItem;
+  
+  if (!localStorageItem) {
+    localStorage.setItem(itemName, JSON.stringify(initialValue));
+    parsedItem = initialValue;
+  } else {
+    parsedItem = JSON.parse(localStorageItem);
   }
 
+  const [item, setItem] = React.useState(parsedItem);
 
-  const [todos,setTodos]=useState(parsedTodos); //props for ToDos
+  const saveItem = (newItem) => {
+    const stringifiedItem = JSON.stringify(newItem);
+    localStorage.setItem(itemName, stringifiedItem);
+    setItem(newItem);
+  };
+
+  return [
+    item,
+    saveItem,
+  ];
+}
+
+function App(props) {
+
+  const [todos, saveTodos] = useLocalStorage('TODOS_V1', []); //nuevo Hook para localStorage
 
   const [searchValue,setSearchValue]=useState(''); //props input for Search
   let searchedTodos=[];
@@ -53,12 +67,6 @@ function App(props) {
 
   const completedTodos=todos.filter(item=> !!item.completed).length; // filter completed ToDos
   const totalTodos= todos.length; //Total ToDos
-
-  const saveTodos=(newTodos)=>{
-    const stringifiedTodos= JSON.stringify(newTodos);
-    localStorage.setItem('TODOS_V1',stringifiedTodos);
-    setTodos(newTodos)
-  }
 
   const completeTodos=(text)=>{ // New array with complete true or false
     const todoIndex=todos.findIndex(item=>item.text===text);
