@@ -1,11 +1,11 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {TodoCounter} from './components/TodoCounter'
 import {TodoItem} from './components/TodoItem'
 import {CreateTodoButton} from './components/CreateTodoButton'
 import {TodoList} from './components/TodoList'
 import {TodoSearch} from './components/TodoSearch'
 import './assets/styles/App.css'
-import useLocalStorage from './hooks/useLocalStorage'
+import {TodoProvider,TodoContext} from '../src/hooks/useContext'
 
 // function generateUUID() { // Public Domain/MIT
 //   let d = new Date().getTime();//Timestamp
@@ -25,80 +25,54 @@ import useLocalStorage from './hooks/useLocalStorage'
 
 function App(props) {
 
-  const {
-    item: todos,
-    saveItem: saveTodos,
-    loading,
-    error,
-  } = useLocalStorage('TODOS_V1', []); //nuevo Hook para localStorage
-
-  const [searchValue,setSearchValue]=useState(''); //props input for Search
-  let searchedTodos=[];
-  !searchValue.length>0?searchedTodos=todos:searchedTodos=todos.filter(item=>item.text.toLowerCase().includes(searchValue.toLowerCase())); //filter Search text
-  
-  const [importantValue,setImportantValue]=useState(false); //state search important
-  let searchedImportantTodos=[];
-  !importantValue?searchedImportantTodos=searchedTodos:searchedImportantTodos=searchedTodos.filter(item=>item.important); //filter Search
-
-  const completedTodos=todos.filter(item=> !!item.completed).length; // filter completed ToDos
-  const totalTodos= todos.length; //Total ToDos
-
-  const completeTodos=(text)=>{ // New array with complete true or false
-    const todoIndex=todos.findIndex(item=>item.text===text);
-    const newTodos=[...todos]; //nueva lista
-    newTodos[todoIndex].completed=!newTodos[todoIndex].completed;
-    saveTodos(newTodos) //setTodos change for saveTodos
-  }
-
-  const deleteTodos=(text)=>{ // New array with delete ToDos
-    const newTodos=todos.filter(item=>item.text!==text); //nueva lista
-    saveTodos(newTodos) //setTodos change for saveTodos
-  }
-  const importantTodos=(text)=>{ // New array with important true or false
-    const todoIndex=todos.findIndex(item=>item.text===text);
-    const newTodos=[...todos]; //nueva lista
-    newTodos[todoIndex].important=!newTodos[todoIndex].important;
-    saveTodos(newTodos) //setTodos change for saveTodos
-  }
-
   return (
-    <>
-      <section className="todos">
-        <section className="todos__container">
-          <TodoCounter 
-            completedTodos={completedTodos}
-            totalTodos={totalTodos}
-          />
-          <TodoSearch
-            searchValue={searchValue}
-            setSearchValue={setSearchValue}
-            importantValue={importantValue}
-            setImportantValue={setImportantValue}
-          />
-          <TodoList>
-            <div className="todos__container-noImportant">
-              {error && <p>Desespérate, hubo un error...</p>}
-              {loading && <p>Estamos cargando, no desesperes...</p>}
-              {!loading && searchedImportantTodos.length===0?<h1>DOESN'T EXIST TASK</h1>:null}
-            </div>
-            {searchedImportantTodos.map(item => (
-              <TodoItem 
-                text={item.text}
-                key={item.id}
-                completed={item.completed}
-                important={item.important}
-                completeTodos={()=>completeTodos(item.text)}
-                deleteTodos={()=>deleteTodos(item.text)}
-                importantTodos={()=>importantTodos(item.text)}
-              />
-            ))}
-          </TodoList>
-          <span className="todos__container-button">
-            <CreateTodoButton />
-          </span>
+
+    <TodoProvider>
+      <>
+        <section className="todos">
+          <section className="todos__container">
+            <TodoCounter 
+              // completedTodos={completedTodos}
+              // totalTodos={totalTodos}
+            />
+            <TodoSearch
+              // searchValue={searchValue}
+              // setSearchValue={setSearchValue}
+              // importantValue={importantValue}
+              // setImportantValue={setImportantValue}
+            />
+            <TodoContext.Consumer>
+              {({error,loading,searchedImportantTodos,completeTodos,deleteTodos,importantTodos})=>(
+                <TodoList>
+                <div className="todos__container-noImportant">
+                  {error && <p>Desespérate, hubo un error...</p>}
+                  {loading && <p>Estamos cargando, no desesperes...</p>}
+                  {!loading && searchedImportantTodos.length===0?<h1>DOESN'T EXIST TASK</h1>:null}
+                </div>
+                {searchedImportantTodos.map(item => (
+                  <TodoItem 
+                    text={item.text}
+                    key={item.id}
+                    completed={item.completed}
+                    important={item.important}
+                    completeTodos={()=>completeTodos(item.text)}
+                    deleteTodos={()=>deleteTodos(item.text)}
+                    importantTodos={()=>importantTodos(item.text)}
+                  />
+                  ))}
+                </TodoList>
+              )}
+
+
+            </TodoContext.Consumer>
+
+            <span className="todos__container-button">
+              <CreateTodoButton />
+            </span>
+          </section>
         </section>
-      </section>
-    </>
+      </>
+    </TodoProvider>
     
   );
 }
