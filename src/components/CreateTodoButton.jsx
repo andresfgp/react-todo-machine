@@ -1,15 +1,18 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import '../assets/styles/components/CreateTodoButton.css'
+import {TodoContext} from '../hooks/useContext'
 
 const CreateTodoButton = (props) => {
-    const handleOnClick =(msg)=>{
-      alert(msg);
+  const {setOpenModal,setImportantNewValue}=useContext(TodoContext)
+    const handleOnClick =()=>{
+      setOpenModal(true);
+      setImportantNewValue(false);
     }
     return (
         <>
           <button 
             className='button'
-            onClick={()=>handleOnClick('Alerta')} //funcion
+            onClick={handleOnClick} //funcion
           >+</button>  
         </>
     )

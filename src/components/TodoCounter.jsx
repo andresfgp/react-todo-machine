@@ -1,9 +1,10 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import '../assets/styles/components/TodoCounter.css'
 import thingsToDo from '../assets/static/Things-to-Do.png'
+import {TodoContext} from '../hooks/useContext'
 
 const TodoCounter = (props) => {
-    const {completedTodos, totalTodos}=props
+    const {completedTodos, totalTodos}=useContext(TodoContext)
     return (
         <div className="title">
             <img src={thingsToDo} alt="" />
