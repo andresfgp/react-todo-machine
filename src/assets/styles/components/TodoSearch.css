@@ -1,9 +1,15 @@
 .TodoSearch{
+    margin: 0px;
+    display:flex;
+    flex-direction: column;
+}
+
+.TodoSearch__inputAndImp{
     display: flex;
     align-items: center;
-    width: 80%;
+    width: 100%;
 }
-.TodoSearch__input{
+.TodoSearch__inputAndImp-input{
     background: transparent;
     height:35px;
     width: 100%;
@@ -16,16 +22,38 @@
     color:white;
 }
 
-.TodoSearch__input::placeholder {
+.TodoSearch__inputAndImp-input::placeholder {
     color: white;
     font-family: 'Montserrat';
     font-size: 20px;
   }
 
-.TodoSearch__important{
+.TodoSearch__inputAndImp-imp{
     margin-left: 10px;
 }
 
-.TodoSearch__important--active{
+.TodoSearch__inputAndImp-impActive{
     color:red;
-  }
+}
+
+.TodoSearch__button{
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+}
+.TodoSearch__button-style{
+    margin: 5px;
+    width:80px;
+    background-color:rgba(255,255,255,0.2);
+    padding: 5px;
+    border-radius: 5px;
+    border: 0px solid transparent;
+}
+
+.TodoSearch__button-style:hover{
+    background-color:rgba(255,255,255,0.5);
+}
+
+.TodoSearch__button-active{
+    background-color:rgba(255,255,255,0.5);
+}

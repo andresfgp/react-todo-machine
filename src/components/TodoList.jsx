@@ -4,11 +4,11 @@ import '../assets/styles/components/TodoList.css'
 const TodoList = (props) => {
     const {children}=props;
     return (
-        <section className="TodoList">
-          <ul>
+        <div className="TodoList">
+          <ul className="TodoList__ul">
             {children}
           </ul>
-        </section>
+        </div>
       );
 }
 

@@ -34,13 +34,21 @@ function TodoProvider(props){
     const [searchValue,setSearchValue]=useState(''); //props input for Search
     let searchedTodos=[];
     !searchValue.length>0?searchedTodos=todos:searchedTodos=todos.filter(item=>item.text.toLowerCase().includes(searchValue.toLowerCase())); //filter Search text
+
+    const [searchCompletedValues,setSearchCompletedValues]=useState(false); //state search completed
+    let searchedCompletedTodos=[];
+    !searchCompletedValues?searchedCompletedTodos=searchedTodos:searchedCompletedTodos=searchedTodos.filter(item=>item.completed); //filter Search
+
+    const [searchNoCompletedValues,setSearchNoCompletedValues]=useState(false); //state search completed
+    let searchedNoCompletedTodos=[];
+    !searchNoCompletedValues?searchedNoCompletedTodos=searchedCompletedTodos:searchedNoCompletedTodos=searchedCompletedTodos.filter(item=>!item.completed); //filter Search
     
     const [searchImportantValues,setSearchImportantValues]=useState(false); //state search important
     let searchedImportantTodos=[];
-    !searchImportantValues?searchedImportantTodos=searchedTodos:searchedImportantTodos=searchedTodos.filter(item=>item.important); //filter Search
-    
-    const completedTodos=todos.filter(item=> !!item.completed).length; // filter completed ToDos
-    const totalTodos= todos.length; //Total ToDos
+    !searchImportantValues?searchedImportantTodos=searchedNoCompletedTodos:searchedImportantTodos=searchedNoCompletedTodos.filter(item=>item.important); //filter Search
+  
+    const completedTodos=todos.filter(item=> !!item.completed).length; // filter completed ToDos number
+    const totalTodos= todos.length; //Total ToDos number
     
     const [importantNewValue,setImportantNewValue]=useState(false); //state important
     const [taskExists,setTaskExists]=useState(false); //setImportantNewValue]=useState(false); //state important
@@ -87,6 +95,8 @@ function TodoProvider(props){
             searchedTodos,
             searchedImportantTodos,
             searchImportantValues,
+            searchCompletedValues,
+            searchNoCompletedValues,
             importantNewValue,
             openModal,
             taskExists,
@@ -95,6 +105,8 @@ function TodoProvider(props){
             setImportantNewValue,
             setOpenModal,
             setTaskExists,
+            setSearchCompletedValues,
+            setSearchNoCompletedValues,
             completeTodos,
             deleteTodos,
             importantTodos,
