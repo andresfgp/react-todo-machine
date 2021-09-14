@@ -16,7 +16,7 @@
   }
   
   .TodoItem-p {
-    margin: 20px 0px 20px 10px;
+    margin: 20px 10px 20px 10px;
     width: calc(100% - 150px);
     font-size: 18px;
     line-height: 24px;
@@ -55,4 +55,22 @@
 
   .Icon-important--active{
     color:red;
+  }
+
+  @media only screen and (max-width: 600px){
+    .Icon {
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height:30px;
+      width:30px;
+      font-size: 24px;
+      font-weight: bold;
+      padding:5px;
+    }
+    .Icon-delete{
+      color: red;
+    }
+
   }

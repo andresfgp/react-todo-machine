@@ -5,7 +5,7 @@
     flex-direction: column;
     justify-content: center;
     padding: 0px 30px;
-    min-height: calc(100vh); 
+    min-height: calc(80vh); 
   }
 
 .todos__container{
@@ -30,4 +30,35 @@
 }
 .todos__container-noImportant{
   text-align: center;
+}
+
+@media only screen and (max-width: 640px)
+{
+    .todos {
+      background:linear-gradient(gray,rgba(2,100,200,0.5));
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0px;
+      /* min-height: calc(100vh);  */
+    }
+    .todos__container
+    {
+        background-color: transparent;
+        border: none;
+        padding: 0px;
+        width: 100%;
+        margin:0px;
+        display:flex;
+        flex-direction:column;
+        align-items: center;
+        justify-content:center;
+        flex-flow: column wrap;
+    }
+    .todos__container-button{
+      position:fixed;
+      right: 15px;
+      bottom: 15px;
+    }
 }

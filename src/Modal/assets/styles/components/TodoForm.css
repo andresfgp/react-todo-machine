@@ -10,15 +10,19 @@ form {
   }
   
   .TodoForm__label {
+    display: flex;
+    flex-direction: column;
     text-align: center;
     font-weight: bold;
+    font-style: italic;
     font-size: 20px;
-    color: #1E1E1F;
+    color:#981c2c;
     margin-bottom: 26px;
   }
   
   .TodoForm__label>img{
-    height:20px;
+    padding: 5px;
+    height:30px;
   }
 
   .TodoForm__text {
@@ -98,3 +102,20 @@ form {
   .TodoForm-button--cancel:hover {
     background: rgba(32, 35, 41, 0.25);
   }
+
+  @media only screen and (max-width: 640px)
+{
+    form
+    {
+      width: 100%;
+      margin: 50px;
+    }
+    .TodoForm-button--add {
+      background: rgba(152,28,44, 1);
+      margin: 10px;
+    }
+    .TodoForm-button--cancel {
+      background: rgba(32, 35, 41, 0.25);
+      margin: 10px;
+    }
+}

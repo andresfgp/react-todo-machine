@@ -43,6 +43,7 @@ function TodoProvider(props){
     const totalTodos= todos.length; //Total ToDos
     
     const [importantNewValue,setImportantNewValue]=useState(false); //state important
+    const [taskExists,setTaskExists]=useState(false); //setImportantNewValue]=useState(false); //state important
     
     const completeTodos=(text)=>{ // New array with complete true or false
       const todoIndex=todos.findIndex(item=>item.text===text);
@@ -62,13 +63,19 @@ function TodoProvider(props){
       saveTodos(newTodos) //setTodos change for saveTodos
     }
     const addTodos=(text)=>{ // New array with important true or false
-      const newTodos=[...todos]; //nueva lista
-      newTodos.push({
-        completed:false,
-        text:text,
-        important:importantNewValue,
-        id:generateUUID()});
-      saveTodos(newTodos) //setTodos change for saveTodos
+      const newTodos=[...todos]; //nueva 
+      if (!newTodos.some((item) => item.text.toLowerCase() === text.toLowerCase())){
+        newTodos.push({
+          completed:false,
+          text:text,
+          important:importantNewValue,
+          id:generateUUID()});
+        saveTodos(newTodos) //setTodos change for saveTodos
+        setOpenModal(false)
+        setTaskExists(false)
+      }else{
+        setTaskExists(true)
+      }
     }
     return(
         <TodoContext.Provider value={{
@@ -82,10 +89,12 @@ function TodoProvider(props){
             searchImportantValues,
             importantNewValue,
             openModal,
+            taskExists,
             setSearchValue,
             setSearchImportantValues,
             setImportantNewValue,
             setOpenModal,
+            setTaskExists,
             completeTodos,
             deleteTodos,
             importantTodos,

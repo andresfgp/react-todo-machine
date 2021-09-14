@@ -8,6 +8,7 @@ import '../assets/styles/App.css'
 import {TodoContext} from '../hooks/useContext'
 import {Modal} from '../Modal/index'
 import {TodoForm} from '../Modal/components/TodoForm'
+import {Footer} from '../components/Footer'
 
 const AppUI = () => {
 
@@ -22,38 +23,39 @@ const AppUI = () => {
     return (
             <>
             <section className="todos">
-            <section className="todos__container">
-                <TodoCounter />
-                <TodoSearch />
-                <TodoList>
-                    <div className="todos__container-noImportant">
-                    {error && <p>Desespérate, hubo un error...</p>}
-                    {loading && <p>Estamos cargando, no desesperes...</p>}
-                    {!loading && searchedImportantTodos.length===0?<h1>DOESN'T EXIST TASK</h1>:null}
-                    </div>
-                    {searchedImportantTodos.map(item => (
-                    <TodoItem 
-                        text={item.text}
-                        key={item.id}
-                        completed={item.completed}
-                        important={item.important}
-                        completeTodos={()=>completeTodos(item.text)}
-                        deleteTodos={()=>deleteTodos(item.text)}
-                        importantTodos={()=>importantTodos(item.text)}
-                    />
-                    ))}
-                </TodoList>
-                <span className="todos__container-button">
-                <CreateTodoButton />
-                </span>
-                {!!openModal && (
-                <Modal>
-                    <TodoForm />
-                </Modal>
-                )}
+                <section className="todos__container">
+                    <TodoCounter />
+                    <TodoSearch />
+                    <TodoList>
+                        <div className="todos__container-noImportant">
+                        {error && <p>Something is wrong...</p>}
+                        {loading && <p>Loading...</p>}
+                        {!loading && searchedImportantTodos.length===0?<h1>DOESN'T EXIST TASK</h1>:null}
+                        </div>
+                        {searchedImportantTodos.map(item => (
+                        <TodoItem 
+                            text={item.text}
+                            key={item.id}
+                            completed={item.completed}
+                            important={item.important}
+                            completeTodos={()=>completeTodos(item.text)}
+                            deleteTodos={()=>deleteTodos(item.text)}
+                            importantTodos={()=>importantTodos(item.text)}
+                        />
+                        ))}
+                    </TodoList>
+                    <span className="todos__container-button">
+                    <CreateTodoButton />
+                    </span>
+                    {!!openModal && (
+                    <Modal>
+                        <TodoForm />
+                    </Modal>
+                    )}
 
+                </section>
             </section>
-            </section>
+            <Footer />
             </>
     )
 }

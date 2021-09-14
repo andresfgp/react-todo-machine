@@ -7,7 +7,12 @@ import {ReactComponent as ImportantIcon} from '../assets/static/important.svg';
 
 const TodoForm = () => {
 
-    const {addTodos,setOpenModal,importantNewValue, setImportantNewValue}=useContext(TodoContext);
+    const {addTodos,
+        setOpenModal,
+        importantNewValue,
+        setImportantNewValue,
+        taskExists}=useContext(TodoContext);
+
     const [newTodoValue,setNewTodoValue]=useState('')
 
     const onChange=(e)=>{
@@ -21,7 +26,7 @@ const TodoForm = () => {
     const onSubmit=(e)=>{
         e.preventDefault(); //cuando formulario se envie (cuando le demos click al botton que tiene type submit) NO vamos a recargar la pagina o enviar los datos a otra parte
         addTodos(newTodoValue);
-        setOpenModal(false)
+        // setOpenModal(false)
     }
 
     const onImportant=()=>{
@@ -31,14 +36,14 @@ const TodoForm = () => {
     return (
         <form onSubmit={onCancel}>
             <div className='TodoForm__label'>
-                <label>Write down a new </label>
+                <label>Add</label>
                 <img src={thingsToDo} alt="thing to do"/>  
             </div>
             <div className='TodoForm__text'>
                 <textarea
                     value={newTodoValue}
                     onChange={onChange}
-                    placeholder='Write a new task'
+                    placeholder='Type something...'
                     name=""
                     id=""
                     cols="30"
@@ -60,6 +65,7 @@ const TodoForm = () => {
                     className="TodoForm-button TodoForm-button--add"
                 >Add</button>
             </div>
+            {taskExists && <p>Task already added, please try again!</p>}
         </form>
     )
 }

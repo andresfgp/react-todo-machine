@@ -8,8 +8,8 @@ const TodoCounter = (props) => {
     return (
         <div className="title">
             <img src={thingsToDo} alt="" />
-            {totalTodos===1?(<h2>You have completed {completedTodos} of {totalTodos} task</h2>):
-            (<h2>You have completed {completedTodos} of {totalTodos} tasks</h2>)}
+            {totalTodos===1?(<h2>You have completed <br/> {completedTodos} of {totalTodos} task</h2>):
+            (<h2>You have completed <br/> {completedTodos} of {totalTodos} tasks</h2>)}
             
         </div>
     )
