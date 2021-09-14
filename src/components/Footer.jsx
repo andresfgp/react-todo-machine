@@ -12,7 +12,7 @@ import instagram from '../assets/static/instagram.png';
 const Footer = (props) => {
   return (
     <footer className='footer'>
-      <h3>Let's create something new</h3>
+      <h3>Let's create something new!</h3>
       <div className='footer__img'>
         <div className='footer__img-sec1'>
           <a href='mailto:andres.fgp@hotmail.com' target='_blank' rel='noreferrer'><img src={outlook} alt='outlook' /></a>

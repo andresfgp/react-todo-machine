@@ -16,9 +16,13 @@ const TodoSearch = (props) => {
 
   const inputChange=(e) => {
     setSearchValue(e.target.value)
+    setSearchNoCompletedValues(false)
+    setSearchCompletedValues(false)
   };
   const onImportant=()=>{
     setSearchImportantValues(!searchImportantValues)
+    setSearchNoCompletedValues(false)
+    setSearchCompletedValues(false)
   };
 
   const onAll=()=>{
