@@ -53,12 +53,12 @@ const TodoForm = () => {
                     onClick={onCancel}
                     type="button"
                     className="TodoForm-button TodoForm-button--cancel"
-                >Cancelar</button>
+                >Cancel</button>
                 <button 
                     onClick={onSubmit}
                     type="submit"
                     className="TodoForm-button TodoForm-button--add"
-                >Añadir</button>
+                >Add</button>
             </div>
         </form>
     )
