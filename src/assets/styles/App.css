@@ -35,7 +35,9 @@
 .todos__container-noImportant{
   text-align: center;
 }
-
+.todos__container-buttonActive{
+  z-index: 1;
+}
 @media only screen and (max-width: 640px)
 {
     .todos {

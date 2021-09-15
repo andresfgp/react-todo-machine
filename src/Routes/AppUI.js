@@ -8,6 +8,7 @@ import '../assets/styles/App.css'
 import {TodoContext} from '../hooks/useContext'
 import {Modal} from '../Modal/index'
 import {TodoForm} from '../Modal/components/TodoForm'
+import {TodoInit} from '../Modal/components/TodoInit'
 import {Footer} from '../components/Footer'
 
 const AppUI = () => {
@@ -18,7 +19,8 @@ const AppUI = () => {
         completeTodos,
         deleteTodos,
         importantTodos,
-        openModal}=useContext(TodoContext)
+        openModal,
+        init}=useContext(TodoContext)
 
     return (
             <>
@@ -30,7 +32,7 @@ const AppUI = () => {
                         <div className="todos__container-noImportant">
                         {error && <p>Something is wrong...</p>}
                         {loading && <p>Loading...</p>}
-                        {!loading && searchedImportantTodos.length===0?<h1>DOESN'T EXIST TASK</h1>:null}
+                        {!loading && searchedImportantTodos.length===0?<h1>TASK DOESN'T EXIST</h1>:null}
                         </div>
                         {searchedImportantTodos.map(item => (
                         <TodoItem 
@@ -44,12 +46,17 @@ const AppUI = () => {
                         />
                         ))}
                     </TodoList>
-                    <span className="todos__container-button">
+                    <span className={`todos__container-button ${init && 'todos__container-buttonActive'}`}>
                     <CreateTodoButton />
                     </span>
                     {!!openModal && (
                     <Modal>
                         <TodoForm />
+                    </Modal>
+                    )}
+                    {!!init && (
+                    <Modal>
+                        <TodoInit />
                     </Modal>
                     )}
 

@@ -23,14 +23,22 @@ function TodoProvider(props){
 
     const { children } = props;
     const [openModal,setOpenModal]=useState(false);
+    
+    const [openModalInit,setOpenModalInit]=useState(true);
 
     const {
         item: todos,
         saveItem: saveTodos,
         loading,
         error,
-    } = useLocalStorage('TODOS_V1', []); //nuevo Hook para localStorage
-    
+    } = useLocalStorage('TODOS_V1', []); //nuevo Hook para localStorageItem
+
+    const {
+      item: init,
+      saveItem: saveInit,
+  } = useLocalStorage('INIT_V1', false); //nuevo Hook para localStorageItem
+
+
     const [searchValue,setSearchValue]=useState(''); //props input for Search
     let searchedTodos=[];
     !searchValue.length>0?searchedTodos=todos:searchedTodos=todos.filter(item=>item.text.toLowerCase().includes(searchValue.toLowerCase())); //filter Search text
@@ -46,7 +54,7 @@ function TodoProvider(props){
     const [searchImportantValues,setSearchImportantValues]=useState(false); //state search important
     let searchedImportantTodos=[];
     !searchImportantValues?searchedImportantTodos=searchedNoCompletedTodos:searchedImportantTodos=searchedNoCompletedTodos.filter(item=>item.important); //filter Search
-  
+    
     const completedTodos=todos.filter(item=> !!item.completed).length; // filter completed ToDos number
     const totalTodos= todos.length; //Total ToDos number
     
@@ -79,6 +87,7 @@ function TodoProvider(props){
           important:importantNewValue,
           id:generateUUID()});
         saveTodos(newTodos) //setTodos change for saveTodos
+        saveInit(openModalInit)
         setOpenModal(false)
         setTaskExists(false)
       }else{
@@ -99,11 +108,13 @@ function TodoProvider(props){
             searchNoCompletedValues,
             importantNewValue,
             openModal,
+            init,
             taskExists,
             setSearchValue,
             setSearchImportantValues,
             setImportantNewValue,
             setOpenModal,
+            setOpenModalInit,
             setTaskExists,
             setSearchCompletedValues,
             setSearchNoCompletedValues,
