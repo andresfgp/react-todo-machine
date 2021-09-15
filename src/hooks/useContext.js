@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import useLocalStorage from './useLocalStorage'
+import useLocalStorageInit from './useLocalStorageInit'
 
 const TodoContext= React.createContext();
 
@@ -33,10 +34,7 @@ function TodoProvider(props){
         error,
     } = useLocalStorage('TODOS_V1', []); //nuevo Hook para localStorageItem
 
-    const {
-      item: init,
-      saveItem: saveInit,
-  } = useLocalStorage('INIT_V1', false); //nuevo Hook para localStorageItem
+    const [init,saveInit] = useLocalStorageInit('INIT_V1', openModalInit); //nuevo Hook para localStorageItem
 
 
     const [searchValue,setSearchValue]=useState(''); //props input for Search
